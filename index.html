@@ -1,0 +1,178 @@
+<html>
+    <head>
+        <style>
+            #out {
+                white-space: pre;
+                font-family: monospace;
+            }
+            .active {
+                opacity: 1 !important;
+                background-color: #eee;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="out"></div>
+        <script>
+            const renderGzip = (chars) => {
+                const buildChildren = (char, l = 1) => {
+                    const children = char.reused.map(i => chars[i]);
+                    return children.map(c => [c, l])
+                        .concat(...children.map(c => buildChildren(c, l + 1)));
+                };
+                const buildParents = (char, l = -1) => {
+                    if (char.isLiteral) return [];
+                    const parent = chars[char.refIndex];
+                    return [...buildParents(parent, l - 1), [parent, l]];
+                };
+                const buildDepTree = (char) => [...buildParents(char), [char, 0], ...buildChildren(char)];
+
+                const maxReuse = Math.max(...chars.map(c => c.char === ' ' ? 0 : c.reused.length));
+                const out = document.getElementById('out');
+                chars.forEach(char => {
+                    let el;
+                    if (char.char === '\n') {
+                        el = document.createElement('br');
+                    } else {
+                        el = document.createElement('span');
+                        el.innerText = char.char;
+                    }
+                    el.setAttribute('data-index', char.rawIndex);
+                    el.setAttribute('data-block', char.blockId);
+
+
+                    const opacity = 0.2 + 0.8 * (char.reused.length / maxReuse);
+                    el.style.opacity = opacity;
+                    el.title = char.reused.length;
+                    el.style.color = char.isLiteral ? '#000' : '#2a2';
+
+                    const getBlockRefs = bid => bid == null ? [] : chars.filter(c => c.blockId === bid).map(c => c.refIndex);
+                    let isActive = false;
+                    const uniq = (...arr) => Array.from(new Set([].concat(...arr)));
+                    const getChildBlocks = (char, level = 1) => {
+                        const children = char.reused.map(i => chars[i]);
+                        const childBlocks = uniq(children.map(c => c.blockId)).map(bid => [bid, level]);
+                        return childBlocks.concat(uniq(...children.map(c => getChildBlocks(c, level + 1))));
+                    };
+                    const getByIndex = i => document.querySelector(`[data-index="${i}"]`);
+                    const getByBlock = bid => bid == null ? [] : Array.from(document.querySelectorAll(`[data-block="${bid}"]`));
+                    const getRelated = () => {
+                        // const deps = buildDepTree(char);
+                        // const directRefs = deps.filter(([c, lvl]) => lvl === 1).map(([c]) => c);
+                        // const ownBlockRefs = getBlockRefs(char.blockId);
+
+                        const relatedSiblings = [char.rawIndex];
+                        for (let i = char.rawIndex - 1; i >= 0; i--) {
+                            if (chars[i].blockReused.every(r => !char.blockReused.includes(r))) {
+                                break;
+                            }
+                            relatedSiblings.push(i);
+                        }
+                        for (let i = char.rawIndex + 1; i < chars.length; i++) {
+                            if (chars[i].blockReused.every(r => !char.blockReused.includes(r))) {
+                                break;
+                            }
+                            relatedSiblings.push(i);
+                        }
+
+                        const nodes = [];
+                        nodes.push(...relatedSiblings.map(getByIndex));
+                        console.log(nodes);
+                        // // highlight sibling chars reused directly
+                        // directRefs.forEach(char => {
+                        //     nodes.push(...getBlockRefs(char.blockId).map(refId => getByIndex(refId)));
+                        // });
+                        // // highlight referencing blocks
+                        // directRefs.forEach(char => {
+                        //     nodes.push(...getByBlock(char.blockId));
+                        // });
+                        // // highlight own block
+                        // nodes.push(...getByBlock(char.blockId), getByIndex(char.rawIndex));
+                        // // highlight parents for own block
+                        // if (char.blockId) {
+                        //     const blockItems = chars.filter(c => c.blockId === char.blockId);
+                        //     blockItems.forEach(c => {
+                        //         nodes.push(...buildParents(c).map(([c]) => getByIndex(c.rawIndex)));
+                        //     });
+                        // }
+                        return uniq(nodes);
+                    };
+                    const select = () => {
+                        isActive = true;
+                        getRelated().forEach(el => el.classList.add('active'));
+                    };
+                    const deselect = () => {
+                        isActive = false;
+                        getRelated().forEach(el => el.classList.remove('active'));
+                    };
+                    document.addEventListener('click', (e) => {
+                        if (e.target === el && !isActive) select();
+                        else if (isActive) deselect();
+                    });
+                    out.appendChild(el);
+                })
+            };
+            const parseRow = row => {
+                if (!row) return null;
+                const [_, type, _2, rest = ''] = row.match(/^([^ ]+)( (.*))?$/);
+                if (type === '!') {
+                    return { type: 'comment', text: rest }
+                }
+                if (type === 'match') {
+                    const [count, back] = rest.split(' ').map(Number);
+                    if (count > back) {
+                        console.error('repeat', count, back);
+                    }
+                    return { type, back, count };
+                }
+                if (type === 'literal') {
+                    const [_3, charCodes, _4, str = ''] = rest.match(/^([0-9 ]*)('(.*))?$/);
+                    const text = charCodes
+                        .trim()
+                        .split(' ')
+                        .filter(Boolean)
+                        .map(cc => String.fromCharCode(Number(cc)))
+                        .join('') + str;
+                    return { type, text };
+                }
+                return { type, text: rest }
+            }
+            function processInfgen(data) {
+                let matchBlocks = 0;
+                const chars = [];
+                const appendLiteral = (char) => {
+                    const rawIndex = chars.length;
+                    chars.push({ char, reused: [], rawIndex, isLiteral: true, blockReused: [] });
+                };
+                const appendMatch = (refIndex, blockId) => {
+                    const rawIndex = chars.length;
+                    const markRef = (ref) => {
+                        ref.reused.forEach(r => markRef(r));
+                        ref.reused.push(rawIndex);
+                        ref.blockReused.push(blockId);
+                        if (ref.refIndex) {
+                            markRef(chars[ref.refIndex]);
+                        }
+                    };
+                    const ref = chars[refIndex];
+                    markRef(ref);
+                    chars.push({ char: ref.char, refIndex, reused: [], rawIndex, isLiteral: false, blockId, blockReused: [] });
+                };
+                data.split('\n').map(parseRow).filter(x => !!x).forEach(row => {
+                    if (row.type === 'literal') {
+                        row.text.split('').forEach(char => appendLiteral(char));
+                    } else if (row.type === 'match') {
+                        const baseIndex = chars.length - row.back;
+                        for (let i = 0; i < row.count; i++) {
+                            appendMatch(baseIndex + i % row.back, matchBlocks);
+                        }
+                        matchBlocks += 1;
+                    }
+                });
+
+                renderGzip(chars);
+            }
+            fetch('./Button.infgen').then(res => res.text()).then(processInfgen);
+        </script>
+    </body>
+</html>

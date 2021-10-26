@@ -1,0 +1,452 @@
+! infgen 2.4 output
+!
+gzip
+!
+last
+dynamic
+litlen 10 8
+litlen 32 6
+litlen 35 9
+litlen 37 9
+litlen 40 8
+litlen 41 9
+litlen 44 8
+litlen 45 5
+litlen 46 7
+litlen 48 7
+litlen 49 8
+litlen 50 7
+litlen 51 9
+litlen 52 7
+litlen 53 7
+litlen 54 7
+litlen 55 8
+litlen 56 8
+litlen 57 8
+litlen 58 6
+litlen 59 9
+litlen 66 9
+litlen 67 9
+litlen 73 9
+litlen 89 9
+litlen 91 9
+litlen 93 9
+litlen 95 7
+litlen 97 5
+litlen 98 6
+litlen 99 6
+litlen 100 5
+litlen 101 5
+litlen 102 6
+litlen 103 7
+litlen 104 7
+litlen 105 5
+litlen 106 9
+litlen 107 8
+litlen 108 5
+litlen 109 6
+litlen 110 5
+litlen 111 5
+litlen 112 6
+litlen 114 5
+litlen 115 5
+litlen 116 5
+litlen 117 7
+litlen 118 7
+litlen 119 8
+litlen 120 7
+litlen 121 8
+litlen 122 8
+litlen 123 9
+litlen 125 9
+litlen 256 9
+litlen 257 4
+litlen 258 6
+litlen 259 6
+litlen 260 5
+litlen 261 6
+litlen 262 6
+litlen 263 6
+litlen 264 8
+litlen 265 6
+litlen 266 7
+litlen 267 6
+litlen 268 6
+litlen 269 5
+litlen 270 6
+litlen 271 5
+litlen 272 6
+litlen 273 5
+litlen 274 6
+litlen 275 8
+litlen 276 9
+litlen 277 8
+dist 0 7
+dist 4 7
+dist 6 7
+dist 7 7
+dist 8 5
+dist 9 6
+dist 10 3
+dist 11 4
+dist 12 3
+dist 13 4
+dist 14 3
+dist 15 4
+dist 16 4
+dist 17 5
+dist 18 5
+dist 19 5
+dist 20 4
+dist 21 4
+dist 22 4
+dist 23 7
+dist 24 7
+literal '.Button {
+literal 10 ' 
+match 3 1
+literal 'display: inline-block;
+match 5 27
+literal 'box-sizing:
+match 3 12
+literal 'rder-
+match 3 19
+match 6 28
+literal 'out
+match 4 47
+literal ': none
+match 6 19
+literal 'text-decoration
+match 12 27
+match 6 62
+literal ': 1px solid transparent
+match 6 35
+literal 'margi
+match 3 53
+literal '0
+match 6 15
+literal 'padd
+match 5 121
+match 7 16
+literal 'us
+match 3 126
+literal 'select
+match 8 89
+literal '}
+literal 10 10 '.
+match 6 203
+literal '__i
+match 17 207
+literal 'fle
+match 7 171
+literal 'align-items: c
+match 3 113
+literal 'er
+match 14 61
+literal 'before:not(:last-child)
+match 7 82
+match 6 153
+literal '-lef
+match 3 122
+literal '-4px
+match 12 61
+literal '[
+match 3 112
+literal 'abled]
+match 7 46
+literal 'opacit
+match 3 128
+literal '.4
+match 12 40
+literal '--al
+match 6 68
+literal ' 
+match 18 180
+literal 'justify-co
+match 3 156
+literal 'nt
+match 6 188
+literal '-start
+match 11 346
+match 5 199
+literal ': 
+match 4 68
+match 18 90
+match 6 215
+match 36 92
+match 8 257
+match 16 88
+match 18 281
+match 6 90
+literal 'righ
+match 42 181
+literal 'end
+match 18 91
+match 5 67
+match 14 90
+literal 'str
+match 16 433
+match 11 633
+literal 'width
+match 3 558
+literal '00%
+match 6 17
+match 5 92
+literal 'grow
+match 3 21
+match 11 18
+literal 'basis
+match 5 547
+match 16 92
+match 43 265
+match 12 59
+literal 'lvl-pri
+match 3 499
+literal 'y
+match 7 55
+literal 'back
+match 3 121
+literal 'und
+match 3 58
+literal 'lo
+match 3 708
+literal 'var(--b
+match 6 96
+match 7 45
+literal '_
+match 10 39
+literal ')
+match 6 160
+match 28 45
+match 4 622
+match 9 45
+match 16 127
+literal 's
+match 3 833
+literal 'nd
+match 41 129
+match 9 47
+match 38 131
+match 10 47
+match 29 133
+match 3 281
+literal 'ti
+match 41 132
+match 8 46
+match 38 131
+match 9 46
+match 29 130
+literal 'commerce
+match 38 130
+match 8 46
+match 38 130
+match 9 46
+match 29 130
+match 7 1250
+match 25 129
+match 17 1218
+match 18 1253
+match 13 118
+match 7 80
+literal '_
+match 6 39
+match 27 159
+match 8 41
+match 29 158
+literal 'de
+match 3 743
+literal 'uctiv
+match 32 291
+match 11 42
+match 14 117
+literal '#fff
+match 19 247
+literal 'ver
+match 3 912
+literal '_
+match 38 775
+literal 'media_
+match 8 52
+match 7 193
+match 30 389
+match 21 51
+match 30 394
+match 7 44
+match 34 795
+literal 'rgba(255, 
+match 10 5
+literal '.2
+match 44 247
+match 67 502
+match 6 97
+match 29 114
+literal 'sz-s
+match 8 1631
+match 3 1628
+literal 'he
+match 4 1314
+literal ': 30px
+match 16 1791
+literal ' 15
+match 14 1651
+match 7 62
+match 46 1726
+literal 'r
+match 6 97
+literal '6
+match 30 75
+literal 'af
+match 3 925
+match 6 74
+literal 'fir
+match 29 1801
+match 31 74
+match 7 1382
+match 7 58
+match 9 206
+match 3 1854
+match 3 210
+match 38 60
+literal '--caps
+match 16 66
+literal '7
+match 4 66
+match 17 62
+literal 'm
+match 16 39
+match 8 311
+match 17 354
+match 20 124
+literal 'm
+match 74 333
+literal 'm
+match 73 333
+literal 'm
+match 33 333
+literal '6
+match 5 333
+literal '8
+match 19 60
+literal 'l
+match 19 271
+literal '9
+match 20 271
+literal '44
+match 21 62
+match 53 271
+literal '8
+match 30 75
+match 43 271
+match 31 74
+match 46 2003
+literal 'io
+match 8 580
+match 7 2755
+literal 'radius
+match 4 2142
+match 16 103
+match 3 43
+match 23 115
+match 23 386
+literal '9
+match 5 386
+literal '11
+match 16 73
+literal 'andro
+match 3 1034
+match 21 120
+literal '8
+match 23 46
+match 46 123
+match 4 190
+match 4 124
+literal '2
+match 16 78
+literal 'vk
+match 3 1759
+match 22 122
+match 18 493
+literal 'izeY
+match 4 1899
+match 3 2741
+literal 't
+match 32 1181
+literal '26
+match 43 63
+match 30 191
+literal '-top
+match 3 908
+match 15 1261
+match 3 3165
+match 3 52
+literal 'm: 5
+match 59 105
+match 22 1078
+literal '5
+match 19 1078
+match 24 84
+literal 'm
+match 20 1433
+literal '2
+match 41 147
+literal 'm
+match 37 252
+literal '4
+match 24 252
+match 42 357
+literal 'l
+match 20 168
+match 44 63
+match 36 168
+literal '6
+match 24 168
+match 17 710
+match 12 2875
+literal '.C
+match 3 1843
+match 4 3216
+match 45 2884
+match 13 2052
+match 32 2884
+match 13 2148
+match 26 2884
+match 46 138
+match 23 2846
+match 18 140
+match 9 71
+match 8 316
+match 28 2884
+match 46 132
+match 22 2847
+match 54 131
+match 8 2253
+match 46 130
+match 21 2688
+match 54 129
+match 9 3014
+match 46 130
+match 22 2977
+match 33 3023
+match 25 532
+match 5 1300
+match 31 546
+literal ',
+match 28 47
+match 17 460
+match 29 46
+match 16 375
+literal ',
+match 39 138
+literal 'I
+match 3 10
+match 39 135
+match 33 43
+match 9 132
+match 4 42
+match 17 4252
+literal '72
+match 4 289
+end
+!
+crc
+length
